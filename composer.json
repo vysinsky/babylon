@@ -1,0 +1,41 @@
+{
+  "name": "vysinsky/babylon",
+  "description": "The transpiler for writing PHP 7 today",
+  "license": "MIT",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Michal Vysinsky",
+      "email": "michal@vysinsky.cz"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Babylon\\": "src/"
+    },
+    "files": [
+      "vendor/squizlabs/php_codesniffer/CodeSniffer/Tokens.php"
+    ]
+  },
+  "bin": [
+    "src/babylon"
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:dotblue/codesniffer-ruleset.git"
+    }
+  ],
+  "require": {
+    "ext-tokenizer": "*",
+    "symfony/console": "^2.7",
+    "nette/finder": "^2.3",
+    "squizlabs/php_codesniffer": "^2.3"
+  },
+  "require-dev": {
+    "nette/tester": "^1.4",
+    "dotblue/codesniffer-ruleset": "@dev",
+    "jakub-onderka/php-parallel-lint": "@dev",
+    "jakub-onderka/php-console-highlighter": "@dev"
+  }
+}
