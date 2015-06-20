@@ -24,8 +24,7 @@ class Writer
 
 
 	/**
-	 * @param  string
-	 * @param  string
+	 * {@inheritdoc}
 	 */
 	public function writeFile($filePath, $source)
 	{
