@@ -37,6 +37,7 @@
     "dotblue/codesniffer-ruleset": "@dev",
     "jakub-onderka/php-parallel-lint": "^0.9",
     "jakub-onderka/php-console-highlighter": "^0.3",
-    "phpspec/prophecy": "^1.4"
+    "phpspec/prophecy": "^1.4",
+    "codeclimate/php-test-reporter": "@dev"
   }
 }
