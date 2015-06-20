@@ -2,6 +2,7 @@
 
 namespace Babylon;
 
+use Babylon\Rules\ScalarTypeHints;
 use Nette\Utils\Finder;
 use Symfony\Component\Console;
 
@@ -109,7 +110,9 @@ TEXT;
 	 */
 	private function listRules()
 	{
-		return [];
+		return [
+			new ScalarTypeHints(),
+		];
 	}
 
 }
