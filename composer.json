@@ -28,14 +28,15 @@
   ],
   "require": {
     "ext-tokenizer": "*",
-    "symfony/console": "^2.7",
-    "nette/finder": "^2.3",
-    "squizlabs/php_codesniffer": "^2.3"
+    "symfony/console": "^2.7.0",
+    "nette/finder": "^2.3.0",
+    "squizlabs/php_codesniffer": "^2.3.0"
   },
   "require-dev": {
     "nette/tester": "^1.4",
     "dotblue/codesniffer-ruleset": "@dev",
-    "jakub-onderka/php-parallel-lint": "@dev",
-    "jakub-onderka/php-console-highlighter": "@dev"
+    "jakub-onderka/php-parallel-lint": "^0.9",
+    "jakub-onderka/php-console-highlighter": "^0.3",
+    "phpspec/prophecy": "^1.4"
   }
 }
