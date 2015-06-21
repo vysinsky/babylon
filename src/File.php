@@ -37,17 +37,14 @@ class File extends PHP_CodeSniffer_File
 	/**
 	 * @param  array|int
 	 * @param  int
-	 * @param  int|NULL
-	 * @param  bool
-	 * @param  mixed
-	 * @param  bool
+	 * @param  int
 	 * @return array
 	 */
-	public function findAllBetween($types, $start, $end = NULL, $exclude = FALSE, $value = NULL, $local = FALSE)
+	public function findAllBetween($types, $start, $end)
 	{
 		$tokens = [];
 		do {
-			$token = $this->findNext($types, $start, $end, $exclude, $value, $local);
+			$token = $this->findNext($types, $start, $end);
 			if ($token) {
 				$tokens[] = $token;
 				$start = $token + 1;
