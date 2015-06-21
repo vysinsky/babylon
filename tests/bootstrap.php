@@ -21,7 +21,7 @@ function testRule(Babylon\Rules\Rule $rule, $fileSuffix = '')
 	});
 
 	$transpiler = new Babylon\Transpiler($writer->reveal(), [
-		new Babylon\Rules\ScalarTypeHints(),
+		$rule,
 	]);
 
 	$transpiler->transpile(new Babylon\File(__DIR__ . '/data/php7/' . $ruleReflection->getShortName() . $fileSuffix . '.php'));
