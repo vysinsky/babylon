@@ -10,6 +10,11 @@ use Symfony\Component\Console;
 class Runner extends Console\Command\Command
 {
 
+	/** @var Console\Output\Output */
+	private $output;
+
+
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -27,6 +32,29 @@ class Runner extends Console\Command\Command
 	 */
 	protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
 	{
+		$this->output = $output;
+		$this->printHeader();
+
+		$inputDir = $this->normalizePath($input->getArgument('input'));
+		$outputDir = $this->normalizePath($input->getArgument('output'));
+
+		$output->writeln(sprintf('Searching for PHP files in "%s".', $inputDir));
+		$files = $this->findFiles($inputDir);
+
+		$output->writeln(sprintf(
+			'%s file%s found.',
+			count($files),
+			count($files) === 1 ? '' : 's'
+		));
+		$output->writeln('');
+
+		$this->process($files, $inputDir, $outputDir);
+	}
+
+
+
+	private function printHeader()
+	{
 		$header = <<<TEXT
 
 Welcome to
@@ -40,52 +68,7 @@ The transpiler for writing PHP 7 today
 
 TEXT;
 
-		$output->writeln($header);
-
-		$inputDir = $this->normalizePath($input->getArgument('input'));
-		$outputDir = $this->normalizePath($input->getArgument('output'));
-
-		$output->writeln(sprintf('Searching for PHP files in "%s".', $inputDir));
-
-		/** @var File[] $files */
-		$files = [];
-		foreach (Finder::findFiles('*.php')->from($inputDir) as $path => $file) {
-			$files[] = new File($path);
-		}
-
-		$output->writeln(sprintf(
-			'%s file%s found.',
-			count($files),
-			count($files) === 1 ? '' : 's'
-		));
-		$output->writeln('');
-
-		$transpiler = new Transpiler(new Writer($outputDir), $this->listRules());
-		$table = new Console\Helper\Table($output);
-		$table->setHeaders([
-			'File',
-			'Result',
-		]);
-		$table->setStyle('borderless');
-		foreach ($files as $file) {
-			$shortName = str_replace($inputDir . DIRECTORY_SEPARATOR, NULL, $file->getFilename());
-			switch ($transpiler->transpile($file)) {
-				case 1:
-					$shortName = '<info>' . $shortName . '</info>';
-					$info = '<info>Transpiled</info>';
-					break;
-				case 0:
-					$shortName = '<comment>' . $shortName . '</comment>';
-					$info = '<comment>Nothing to do</comment>';
-					break;
-				case -1:
-					$shortName = '<error>' . $shortName . '</error>';
-					$info = '<error>Error</error>';
-					break;
-			}
-			$table->addRow([$shortName, $info]);
-		}
-		$table->render();
+		$this->output->writeln($header);
 	}
 
 
@@ -101,6 +84,54 @@ TEXT;
 		}
 
 		return getcwd() . DIRECTORY_SEPARATOR . $inputPath;
+	}
+
+
+
+	/**
+	 * @param  string
+	 * @return File[]
+	 */
+	private function findFiles($inputDir)
+	{
+		/** @var File[] $files */
+		$files = [];
+		foreach (Finder::findFiles('*.php')->from($inputDir) as $path => $file) {
+			$files[] = new File($path);
+		}
+		return $files;
+	}
+
+
+
+	/**
+	 * @param  File[]
+	 * @param  string
+	 * @param  string
+	 */
+	private function process($files, $inputDir, $outputDir)
+	{
+		$transpiler = new Transpiler(new Writer($outputDir), $this->listRules());
+		$table = new Console\Helper\Table($this->output);
+		$table->setHeaders([
+			'File',
+			'Result',
+		]);
+		$table->setStyle('borderless');
+
+		/** @var File $file */
+		foreach ($files as $file) {
+			$shortName = str_replace($inputDir . DIRECTORY_SEPARATOR, NULL, $file->getFilename());
+			if ($transpiler->transpile($file)) {
+				$shortName = '<info>' . $shortName . '</info>';
+				$info = '<info>Transpiled</info>';
+			} else {
+				$shortName = '<comment>' . $shortName . '</comment>';
+				$info = '<comment>Nothing to do</comment>';
+			}
+			$table->addRow([$shortName, $info]);
+		}
+		$table->render();
 	}
 
 
