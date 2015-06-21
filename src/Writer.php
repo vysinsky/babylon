@@ -18,7 +18,7 @@ class Writer
 	 */
 	public function __construct($outputDirectory)
 	{
-		$this->outputDirectory = $outputDirectory;
+		$this->outputDirectory = rtrim($outputDirectory, '/\\') . DIRECTORY_SEPARATOR;
 	}
 
 
