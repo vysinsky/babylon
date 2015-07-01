@@ -33,6 +33,9 @@ class ScalarTypeHints implements Rule
 		$file->fixer->beginChangeset();
 		foreach ($variables as $variable) {
 			$typeHint = $file->findPrevious(T_STRING, $variable, $openParenthesis);
+			if (!$typeHint) {
+				continue;
+			}
 			$file->fixer->replaceToken($typeHint, '');
 			$file->fixer->replaceToken($typeHint + 1, '');
 		}
