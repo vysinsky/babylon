@@ -93,13 +93,18 @@ TEXT;
 	 * @param  string
 	 * @return File[]
 	 */
-	private function findFiles($inputDir)
+	private function findFiles($inputPath)
 	{
-		/** @var File[] $files */
 		$files = [];
-		foreach (Finder::findFiles('*.php')->from($inputDir) as $path => $file) {
-			$files[] = new File($path);
+		if (is_dir($inputPath)) {
+			/** @var File[] $files */
+			foreach (Finder::findFiles('*.php')->from($inputPath) as $path => $file) {
+				$files[] = new File($path);
+			}
+		} else {
+			$files[] = new File($inputPath);
 		}
+
 		return $files;
 	}
 
