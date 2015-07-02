@@ -2,6 +2,7 @@
 
 namespace Babylon;
 
+use Babylon\Rules\ReturnTypes;
 use Babylon\Rules\ScalarTypeHints;
 use Nette\Utils\Finder;
 use Symfony\Component\Console;
@@ -105,7 +106,7 @@ TEXT;
 
 
 	/**
-	 * @param  File[]
+	 * @param  File []
 	 * @param  string
 	 * @param  string
 	 */
@@ -142,6 +143,7 @@ TEXT;
 	private function listRules()
 	{
 		return [
+			new ReturnTypes(),
 			new ScalarTypeHints(),
 		];
 	}
