@@ -57,9 +57,10 @@ class Transpiler
 		if ($oldSource !== $source) {
 			$this->writer->writeFile($file->getFilename(), $source);
 			return TRUE;
+		} else {
+			$this->writer->writeFile($file->getFilename(), $oldSource);
+			return FALSE;
 		}
-
-		return FALSE;
 	}
 
 }
