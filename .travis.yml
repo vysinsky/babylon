@@ -6,10 +6,27 @@ php:
   - 7.0
   - hhvm
 
+env:
+  - COVERAGE="--coverage build/logs/clover.xml --coverage-src src -d extension=xdebug.so"
+  - COVERAGE=""
+
 matrix:
   allow_failures:
     - php: 7.0
     - php: hhvm
+
+  exclude:
+    - php: 5.5
+      env: COVERAGE=""
+
+    - php: 5.6
+      env: COVERAGE=""
+
+    - php: 7.0
+      env: COVERAGE="--coverage build/logs/clover.xml --coverage-src src -d extension=xdebug.so"
+
+    - php: hhvm
+      env: COVERAGE="--coverage build/logs/clover.xml --coverage-src src -d extension=xdebug.so"
 
 before_install:
   - composer self-update
@@ -21,7 +38,7 @@ before_script:
   - mkdir -p build/logs
 
 script:
-  - vendor/bin/tester tests -p php --coverage build/logs/clover.xml --coverage-src src -d extension=xdebug.so
+  - vendor/bin/tester tests -p php $COVERAGE
   - src/babylon tests/data/php7 output
   - vendor/bin/parallel-lint output
 
