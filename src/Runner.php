@@ -2,6 +2,7 @@
 
 namespace Babylon;
 
+use Babylon\Rules\NullCoalesceOperator;
 use Babylon\Rules\ReturnTypes;
 use Babylon\Rules\ScalarTypeHints;
 use Nette\Utils\Finder;
@@ -150,6 +151,7 @@ TEXT;
 		return [
 			new ReturnTypes(),
 			new ScalarTypeHints(),
+			new NullCoalesceOperator(),
 		];
 	}
 

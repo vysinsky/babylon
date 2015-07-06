@@ -3,7 +3,6 @@
 namespace Babylon;
 
 use Babylon\Rules\Rule;
-use Tester\Assert;
 
 
 class Transpiler
