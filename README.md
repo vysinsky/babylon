@@ -1,6 +1,6 @@
 [![Travis](https://img.shields.io/travis/vysinsky/babylon.svg?style=flat-square)](https://travis-ci.org/vysinsky/babylon)
-[![Code Climate](https://img.shields.io/codeclimate/github/vysinsky/babylon.svg?style=flat-square)](https://codeclimate.com/repos/5586bfc26956806fe0000e5c)
-[![Code Climate](https://img.shields.io/codeclimate/coverage/github/vysinsky/babylon.svg?style=flat-square)](https://codeclimate.com/repos/5586bfc26956806fe0000e5c)
+[![Code Climate](https://img.shields.io/codeclimate/github/vysinsky/babylon.svg?style=flat-square)](https://codeclimate.com/github/vysinsky/babylon)
+[![Code Climate](https://img.shields.io/codeclimate/coverage/github/vysinsky/babylon.svg?style=flat-square)](https://codeclimate.com/github/vysinsky/babylon)
 
 
 [![Packagist](https://img.shields.io/packagist/v/vysinsky/babylon.svg?style=flat-square)](https://packagist.org/packages/vysinsky/babylon)
